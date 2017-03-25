@@ -1,14 +1,12 @@
-
 ---
-title: gulp+reqiure.js´´½¨µÄ¸öÈËÍøÒ³ÏîÄ¿
-tags: gulp,require.js
-grammar_cjkRuby: true
----
+# gulp+reqiure.jsåˆ›å»ºçš„ä¸ªäººç½‘é¡µé¡¹ç›®
 
-## ÏîÄ¿Ä¿Â¼£º
+***
 
- 	 -dist
-         -images
+## é¡¹ç›®ç›®å½•ï¼š
+
+ 	 -dist                        
+         -images                 
          -js
          -audio
          -video
@@ -23,46 +21,46 @@ grammar_cjkRuby: true
        -package.json
        -gulpfile.js
        -config.js
-
+ 	
 ***
-## gulp.jsÒıÓÃ²å¼şÁĞ±í£º
+## gulp.jså¼•ç”¨æ’ä»¶åˆ—è¡¨ï¼š
 ``` stylus
 	var gulp = require('gulp'),
-//ºÏ²¢²å¼ş
+//åˆå¹¶æ’ä»¶
     concat = require('gulp-concat'),
-//Ñ¹Ëõjs²å¼ş
+//å‹ç¼©jsæ’ä»¶
     uglify = require('gulp-uglify'),
-//Ñ¹ËõÍ¼Æ¬²å¼ş
+//å‹ç¼©å›¾ç‰‡æ’ä»¶
     imagemin = require('gulp-imagemin'),
-//Çå³ıÎÄ¼ş¼Ğ²å¼ş
+//æ¸…é™¤æ–‡ä»¶å¤¹æ’ä»¶
     clean = require('gulp-clean'),
-//Ñ¹Ëõcss²å¼ş
+//å‹ç¼©cssæ’ä»¶
     csso = require('gulp-csso'),
-//js´úÂë¼ì²é²å¼ş
+//jsä»£ç æ£€æŸ¥æ’ä»¶
     jshint = require('gulp-jshint'),
-//ÖØÃüÃû²å¼ş
+//é‡å‘½åæ’ä»¶
     rename = require('gulp-rename'),
-//ä¯ÀÀÆ÷×Ô¶¯Ë¢ĞÂ²å¼ş
+//æµè§ˆå™¨è‡ªåŠ¨åˆ·æ–°æ’ä»¶
     browserSync = require('browser-sync'),
-//Ñ¹Ëõhtml²å¼ş
+//å‹ç¼©htmlæ’ä»¶
     htmlmin = require('gulp-htmlmin'),
-//htmlÎÄ¼şÒıÓÃÂ·¾¶Ìæ»»²å¼ş
+//htmlæ–‡ä»¶å¼•ç”¨è·¯å¾„æ›¿æ¢æ’ä»¶
     htmlreplace = require('gulp-html-replace'),
-//×Ô¶¯Ìí¼Óä¯ÀÀÆ÷¼æÈİÇ°×º²å¼ş
+//è‡ªåŠ¨æ·»åŠ æµè§ˆå™¨å…¼å®¹å‰ç¼€æ’ä»¶
     prefixer = require('gulp-autoprefixer'),
-//±³¾°urlÍ¼Æ¬×ª»»³Ébase64
+//èƒŒæ™¯urlå›¾ç‰‡è½¬æ¢æˆbase64
     base64 = require('gulp-base64'),
-//¼ìË÷´úÂë¾ßÌå´íÎóĞÅÏ¢²å¼ş
+//æ£€ç´¢ä»£ç å…·ä½“é”™è¯¯ä¿¡æ¯æ’ä»¶
     map = require("map-stream"),
-//ÒıÈëconfig.js
+//å¼•å…¥config.js
     config = require('./config.js'),
     reload = browserSync.reload;
 ```
 ***
 
-## Ê¹ÓÃËµÃ÷£º
+## ä½¿ç”¨è¯´æ˜ï¼š
 
- 1. ±¾ÏîÄ¿Ê¹ÓÃgulp+require.js¿ª·¢¸öÈËÖ÷Ò³£¬ÏîÄ¿ÖĞËùÓĞÒÀÀµ¿â´æ·ÅÔÚnode_modulesÏÂ¡£
- 2. ÈçĞèÏÂÔØµ½±¾µØÊ¹ÓÃnpm install °²×°Ä£¿éÒÀÀµ¡£
- 3. Ä¿Ç°´ËÏîÄ¿ÔÚ¿ª·¢ÖĞ£¬ºóĞø´úÂë»á³ÖĞø¸üĞÂ¡£
+ 1. æœ¬é¡¹ç›®ä½¿ç”¨gulp+require.jså¼€å‘ä¸ªäººä¸»é¡µï¼Œé¡¹ç›®ä¸­æ‰€æœ‰ä¾èµ–åº“å­˜æ”¾åœ¨node_modulesä¸‹ã€‚
+ 2. å¦‚éœ€ä¸‹è½½åˆ°æœ¬åœ°ä½¿ç”¨npm install å®‰è£…æ¨¡å—ä¾èµ–ã€‚
+ 3. ç›®å‰æ­¤é¡¹ç›®åœ¨å¼€å‘ä¸­ï¼Œåç»­ä»£ç ä¼šæŒç»­æ›´æ–°ã€‚
 
