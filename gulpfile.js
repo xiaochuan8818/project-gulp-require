@@ -2,110 +2,114 @@
  * Created by Administrator on 2017/3/25 0025.
  */
 var gulp = require('gulp'),
-//ºÏ²¢²å¼þ
+//ï¿½Ï²ï¿½ï¿½ï¿½ï¿½
     concat = require('gulp-concat'),
-//Ñ¹Ëõjs²å¼þ
+//Ñ¹ï¿½ï¿½jsï¿½ï¿½ï¿½
     uglify = require('gulp-uglify'),
-//Ñ¹ËõÍ¼Æ¬²å¼þ
+//Ñ¹ï¿½ï¿½Í¼Æ¬ï¿½ï¿½ï¿½
     imagemin = require('gulp-imagemin'),
-//Çå³ýÎÄ¼þ¼Ð²å¼þ
+//ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½Ð²ï¿½ï¿½
     clean = require('gulp-clean'),
-//Ñ¹Ëõcss²å¼þ
+//Ñ¹ï¿½ï¿½cssï¿½ï¿½ï¿½
     csso = require('gulp-csso'),
-//js´úÂë¼ì²é²å¼þ
+//jsï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     jshint = require('gulp-jshint'),
-//Ìí¼Ó°æ±¾ºÅ²å¼þ
+//ï¿½ï¿½Ó°æ±¾ï¿½Å²ï¿½ï¿½
     rev = require('gulp-rev'),
-//ÖØÃüÃû²å¼þ
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     rename = require('gulp-rename'),
-//ÃüÁîÐÐ²å¼þ
+//ï¿½ï¿½ï¿½ï¿½ï¿½Ð²ï¿½ï¿½
     shell = require('gulp-shell'),
-//ä¯ÀÀÆ÷×Ô¶¯Ë¢ÐÂ²å¼þ
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¶ï¿½Ë¢ï¿½Â²ï¿½ï¿½
     browserSync = require('browser-sync'),
 //
     sourcemaps = require('gulp-sourcemaps'),
-//Ñ¹Ëõhtml²å¼þ
+//Ñ¹ï¿½ï¿½htmlï¿½ï¿½ï¿½
     htmlmin = require('gulp-htmlmin'),
-//htmlÎÄ¼þÒýÓÃÂ·¾¶Ìæ»»²å¼þ
+//htmlï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½Â·ï¿½ï¿½ï¿½æ»»ï¿½ï¿½ï¿½
     htmlreplace = require('gulp-html-replace'),
-//×Ô¶¯Ìí¼Óä¯ÀÀÆ÷¼æÈÝÇ°×º²å¼þ
+//ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç°×ºï¿½ï¿½ï¿½
     prefixer = require('gulp-autoprefixer'),
-//±³¾°urlÍ¼Æ¬×ª»»³Ébase64
+//ï¿½ï¿½ï¿½ï¿½urlÍ¼Æ¬×ªï¿½ï¿½ï¿½ï¿½base64
     base64 = require('gulp-base64'),
-//¼ìË÷´úÂë¾ßÌå´íÎóÐÅÏ¢²å¼þ
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½
     map = require("map-stream"),
-//ÒýÈëconfig.js
+//ï¿½ï¿½ï¿½ï¿½config.js
     config = require('./config.js'),
     reload = browserSync.reload;
 
-//ÅäÖÃÂ·¾¶
+//ï¿½ï¿½ï¿½ï¿½Â·ï¿½ï¿½
 var path = {
     basePath : 'dist/',
     videoPath : 'dist/video',
     audioPath : 'dist/audio',
     script : 'src/js/*.js',
+    otherjs : 'src/js/**/*.js',
     images : 'src/images/**/*',
     cssPath : 'src/css/*.css',
+    othercss : 'src/css/**/*.css',
     libPath : 'src/lib/*.js',
     htmlPath : 'src/*.html',
     watchhtmlPath : 'dist/*.html'
 }
-// Ñ¹Ëõ JS
+// Ñ¹ï¿½ï¿½ JS
 gulp.task('js-optimize', function() {
-    return gulp.src(path.script)
+    return gulp.src([path.script,path.otherjs])
         .pipe(uglify())
+        .pipe(sourcemaps.init({loadMaps: true})) 
+    	.pipe(sourcemaps.write()) 
         .pipe(gulp.dest('dist/js'))
         .pipe(browserSync.stream());
 
-    console.log('js ÎÄ¼þÓÅ»¯´¦ÀíÍê±Ï£¡');
+    console.log('js ï¿½Ä¼ï¿½ï¿½Å»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï£ï¿½');
 });
 
-//Í¼Æ¬Ñ¹Ëõ
+//Í¼Æ¬Ñ¹ï¿½ï¿½
 gulp.task('img-optimize', function() {
 
     return gulp.src(['src/images/**/*.{png,jpg,gif}'])
-        .pipe(imagemin({      // Ö»Ñ¹ËõÐÞ¸ÄµÄÍ¼Æ¬£¬Ã»ÓÐÐÞ¸ÄµÄÍ¼Æ¬Ö±½Ó´Ó»º´æÎÄ¼þ¶ÁÈ¡
+        .pipe(imagemin({      // Ö»Ñ¹ï¿½ï¿½ï¿½Þ¸Äµï¿½Í¼Æ¬ï¿½ï¿½Ã»ï¿½ï¿½ï¿½Þ¸Äµï¿½Í¼Æ¬Ö±ï¿½Ó´Ó»ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½È¡
             progressive: true,
         }))
         .pipe(gulp.dest('dist/images'));
 
-    console.log('Í¼Æ¬Ñ¹ËõÍê±Ï£¡');
+    console.log('Í¼Æ¬Ñ¹ï¿½ï¿½ï¿½ï¿½Ï£ï¿½');
 });
-//cssÑ¹Ëõ
+//cssÑ¹ï¿½ï¿½
 gulp.task('css-optimize', function () {
-    return gulp.src(path.cssPath)
+    return gulp.src([path.cssPath,path.othercss])
         .pipe(prefixer({
             browsers: ['last 2 versions', 'Android >= 4.0'],
-            cascade: true, //ÊÇ·ñÃÀ»¯ÊôÐÔÖµ Ä¬ÈÏ£ºtrue
-            remove:true //ÊÇ·ñÈ¥µô²»±ØÒªµÄÇ°×º Ä¬ÈÏ£ºtrue
+            cascade: true, //ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµ Ä¬ï¿½Ï£ï¿½true
+            remove:true //ï¿½Ç·ï¿½È¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½Ç°×º Ä¬ï¿½Ï£ï¿½true
         }))
         .pipe(base64(config.base64))
         .pipe(concat('index.css'))
         .pipe(rename('index.min.css'))
         .pipe(csso())
         .pipe(gulp.dest('dist/css'))
+        .pipe(sourcemaps.init({loadMaps: true})) 
+    	.pipe(sourcemaps.write()) 
         .pipe(browserSync.stream());
 });
-//ÒÀÀµ²å¼þÑ¹ËõºÏ²¢
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¹ï¿½ï¿½ï¿½Ï²ï¿½
 gulp.task('js-common', function () {
     return gulp.src(path.libPath)
-        .pipe(concat('common.js'))
-        .pipe(rename('common.min.js'))
         .pipe(uglify())
         .pipe(gulp.dest('dist/lib'))
-        .pipe(reload({stream: true}));   //ÔÚÕâÀïÖ´ÐÐreload»áÊÇÒ³ÃæÐÞ¸ÄÖ®ºó£¬ÖØÐÂË¢ÐÂÒ³Ãæ
+        .pipe(reload({stream: true}));   //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ï¿½reloadï¿½ï¿½ï¿½ï¿½Ò³ï¿½ï¿½ï¿½Þ¸ï¿½Ö®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë¢ï¿½ï¿½Ò³ï¿½ï¿½
 });
-//htmlÎÄ¼þÑ¹Ëõ²¢Ìæ»»ÒýÈëÎÄ¼þÂ·¾¶
+//htmlï¿½Ä¼ï¿½Ñ¹ï¿½ï¿½ï¿½ï¿½ï¿½æ»»ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½Â·ï¿½ï¿½
 gulp.task('html-optimize', function() {
     var options = {
-        removeComments: true,//Çå³ýHTML×¢ÊÍ
-        collapseWhitespace: true,//Ñ¹ËõHTML
-        collapseBooleanAttributes: true,//Ê¡ÂÔ²¼¶ûÊôÐÔµÄÖµ <input checked="true"/> ==> <input />
-        removeEmptyAttributes: true,//É¾³ýËùÓÐ¿Õ¸ñ×÷ÊôÐÔÖµ <input id="" /> ==> <input />
-        removeScriptTypeAttributes: true,//É¾³ý<script>µÄtype="text/javascript"
-        removeStyleLinkTypeAttributes: true,//É¾³ý<style>ºÍ<link>µÄtype="text/css"
-        minifyJS: true,//Ñ¹ËõÒ³ÃæJS
-        minifyCSS: true//Ñ¹ËõÒ³ÃæCSS
+        removeComments: true,//ï¿½ï¿½ï¿½HTML×¢ï¿½ï¿½
+        collapseWhitespace: true,//Ñ¹ï¿½ï¿½HTML
+        collapseBooleanAttributes: true,//Ê¡ï¿½Ô²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ôµï¿½Öµ <input checked="true"/> ==> <input />
+        removeEmptyAttributes: true,//É¾ï¿½ï¿½ï¿½ï¿½ï¿½Ð¿Õ¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµ <input id="" /> ==> <input />
+        removeScriptTypeAttributes: true,//É¾ï¿½ï¿½<script>ï¿½ï¿½type="text/javascript"
+        removeStyleLinkTypeAttributes: true,//É¾ï¿½ï¿½<style>ï¿½ï¿½<link>ï¿½ï¿½type="text/css"
+        minifyJS: true,//Ñ¹ï¿½ï¿½Ò³ï¿½ï¿½JS
+        minifyCSS: true//Ñ¹ï¿½ï¿½Ò³ï¿½ï¿½CSS
     };
     return gulp.src(path.htmlPath)
         .pipe(htmlreplace({
@@ -115,27 +119,27 @@ gulp.task('html-optimize', function() {
         .pipe(gulp.dest('dist'))
         .pipe(browserSync.stream())
 });
-//¼ì²âjs´úÂë·½·¨
+//ï¿½ï¿½ï¿½jsï¿½ï¿½ï¿½ë·½ï¿½ï¿½
 var customerReporter = map(function(file,cb){
     config.jshintFn(file,cb);
 });
-//¼ì²âjs´úÂëÈÎÎñ
+//ï¿½ï¿½ï¿½jsï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 gulp.task('js-hint', function() {
     return gulp.src(path.script)
         .pipe(jshint())
         .pipe(customerReporter);
 });
-//Æô¶¯±¾µØ·þÎñÆ÷¼àÌýÎÄ¼þ±ä»¯×Ô¶¯Ë¢ÐÂÒ³Ãæ
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ä»¯ï¿½Ô¶ï¿½Ë¢ï¿½ï¿½Ò³ï¿½ï¿½
 gulp.task('server',function() {
     browserSync.init({
         server: "./dist"
     });
     gulp.watch(path.cssPath, ['css-optimize']);
-    //ÔÚÏÂÃæwatchÕâÀïÌí¼Óon('change',browserSync.reload)»á³öÏÖÏÈË¢ÐÂÒ³ÃæÔÙÑ¹ËõÎÄ¼þ£¬ÊµÏÖ²»ÁËÍ¬²½¸üÐÂ£»
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½watchï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½on('change',browserSync.reload)ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë¢ï¿½ï¿½Ò³ï¿½ï¿½ï¿½ï¿½Ñ¹ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½Êµï¿½Ö²ï¿½ï¿½ï¿½Í¬ï¿½ï¿½ï¿½ï¿½ï¿½Â£ï¿½
     gulp.watch(path.htmlPath, ['html-optimize']);
     gulp.watch(path.script, ['js-optimize']);
 });
-//gulp¸´ÖÆÎÄ¼þµ½Ä¿µÄÂ·¾¶
+//gulpï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½Â·ï¿½ï¿½
 gulp.task('copy-video',  function() {
     return gulp.src('src/video/*')
         .pipe(gulp.dest(path.videoPath))
@@ -144,7 +148,7 @@ gulp.task('copy-audio',  function() {
     return gulp.src('src/audio/*')
         .pipe(gulp.dest(path.audioPath))
 });
-//Ä¬ÈÏÖ´ÐÐµÄÈÎÎñ
+//Ä¬ï¿½ï¿½Ö´ï¿½Ðµï¿½ï¿½ï¿½ï¿½ï¿½
 gulp.task('default',
     [
         'js-hint',
@@ -158,12 +162,12 @@ gulp.task('default',
         'server'
     ],
     function() {
-        console.log('Íê³ÉÑ¹Ëõ´ò°üÈÎÎñ£¡');
+        console.log('ï¿½ï¿½ï¿½Ñ¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½');
         var info = prefixer().info();
         console.log(info);
     }
 );
-//Çå³ýËùÓÐ´ò°üÎÄ¼þ
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½Ä¼ï¿½
 gulp.task('clean', function() {
     return gulp.src('dist/*')
         .pipe(clean())
