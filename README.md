@@ -8,13 +8,15 @@
  	 -dist                        
          -images                 
          -js
+         -lib
          -audio
          -video
          -css
       -src
          -images
          -js
-         -audio
+         -lib
+         -audio
          -video
          -css
        -node_modules
